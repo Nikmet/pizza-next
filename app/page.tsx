@@ -1,3 +1,13 @@
+import { Container, Title, TopBar } from "@/components/shared";
+
 export default function Home() {
-    return <h1>Main</h1>;
+    return (
+        <>
+            <Container className="mt-10">
+                <Title text="Все пиццы" size="lg" className="font-extrabold" />
+            </Container>
+            <TopBar />
+            <div className="h-[1000px]"></div>
+        </>
+    );
 }
