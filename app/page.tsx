@@ -1,4 +1,4 @@
-import { Container, Filters, Title, TopBar } from "@/components/shared";
+import { Container, Filters, ProductCard, ProductsGroupList, Title, TopBar } from "@/components/shared";
 
 export default function Home() {
     return (
@@ -17,7 +17,120 @@ export default function Home() {
 
                     {/* Список товаров */}
                     <div className="flex-1">
-                        <div className="flex flex-col gap-16">Список товаров</div>
+                        <div className="flex flex-col gap-16">
+                            <ProductsGroupList
+                                title="Пиццы"
+                                products={[
+                                    {
+                                        id: 1,
+                                        name: "Пицца 1",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 100
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "Пицца 2",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 200
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "Пицца 2",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 200
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "Пицца 2",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 200
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "Пицца 2",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 200
+                                            }
+                                        ]
+                                    }
+                                ]}
+                                categoryId={1}
+                            />
+                            <ProductsGroupList
+                                title="Завтрак"
+                                products={[
+                                    {
+                                        id: 1,
+                                        name: "Пицца 1",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 100
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "Пицца 2",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 200
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "Пицца 2",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 200
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "Пицца 2",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 200
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        id: 2,
+                                        name: "Пицца 2",
+                                        imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
+                                        items: [
+                                            {
+                                                price: 200
+                                            }
+                                        ]
+                                    }
+                                ]}
+                                categoryId={1}
+                            />
+                        </div>
                     </div>
                 </div>
             </Container>
