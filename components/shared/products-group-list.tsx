@@ -1,6 +1,11 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Title } from "./title";
 import { ProductCard } from "./product-card";
+import { useIntersection } from "react-use";
+import { useEffect, useRef } from "react";
+import { useCategoryStore } from "@/store/category";
 
 export interface IProductsGroupListProps {
     className?: string;
@@ -17,8 +22,21 @@ export const ProductsGroupList = ({
     title,
     listClassName
 }: IProductsGroupListProps): JSX.Element => {
+    const intersectionRef = useRef(null);
+    const setActiveCategoryId = useCategoryStore(state => state.setActiveId);
+
+    const intersection = useIntersection(intersectionRef, {
+        threshold: 0.4,
+    });
+
+    useEffect(() => {
+        if (intersection?.isIntersecting) {
+            setActiveCategoryId(categoryId);
+        }
+    }, [intersection, title, categoryId, setActiveCategoryId]);
+
     return (
-        <div className={className}>
+        <div className={className} id={title} ref={intersectionRef}>
             <Title text={title} size="lg" className="font-extrabold mb-5" />
             <div className={cn("grid grid-cols-3 gap-[80px]", listClassName)}>
                 {products.map(product => (
