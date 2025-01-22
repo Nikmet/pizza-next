@@ -4,7 +4,13 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    url = env("DATABASE_URL")
+    url      = env("DATABASE_URL")
+}
+
+// Перечисление ролей пользователей
+enum UserRole {
+    USER
+    ADMIN
 }
 
 // Таблица пользователей
@@ -12,11 +18,11 @@ model User {
     id Int @id @default(autoincrement())
 
     fullName String
-    email String @unique
+    email    String   @unique
     password String
-    role UserRole @default(USER)
+    role     UserRole @default(USER)
 
-    provider String?
+    provider   String?
     providerId String?
 
     cart Cart?
@@ -24,15 +30,15 @@ model User {
     orders Order[]
 
     verificationCode VerificationCode?
-    verified DateTime @default(now())
+    verified         DateTime          @default(now())
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
 // Таблица категорий продуктов
-model Category { 
-    id Int @id @default(autoincrement())
+model Category {
+    id   Int    @id @default(autoincrement())
     name String @unique
 
     createdAt DateTime @default(now())
@@ -45,11 +51,11 @@ model Category {
 model Product {
     id Int @id @default(autoincrement())
 
-    name String
+    name     String
     imageUrl String
 
     categoryId Int
-    category Category @relation(fields: [categoryId], references: [id])
+    category   Category @relation(fields: [categoryId], references: [id])
 
     ingredients Ingredient[]
 
@@ -63,22 +69,22 @@ model Product {
 model ProductItem {
     id Int @id @default(autoincrement())
 
-    price Int
-    size Int?
+    price     Int
+    size      Int?
     pizzaType Int?
 
     productId Int
-    product Product @relation(fields: [productId], references: [id])
+    product   Product @relation(fields: [productId], references: [id])
 
     cartItems CartItem[]
 }
 
 // Таблица ингредиентов
-model Ingredient { 
+model Ingredient {
     id Int @id @default(autoincrement())
 
-    name String @unique
-    price Int
+    name     String @unique
+    price    Int
     imageUrl String
 
     products Product[]
@@ -93,8 +99,8 @@ model Ingredient {
 model Cart {
     id Int @id @default(autoincrement())
 
-    user User? @relation(fields: [userId], references: [id])
-    userId Int? @unique
+    user   User? @relation(fields: [userId], references: [id])
+    userId Int?  @unique
 
     items CartItem[]
 
@@ -110,13 +116,13 @@ model Cart {
 model CartItem {
     id Int @id @default(autoincrement())
 
-    productItem ProductItem @relation(fields: [productItemId], references: [id])
+    productItem   ProductItem @relation(fields: [productItemId], references: [id])
     productItemId Int
 
-    cart Cart @relation(fields: [cartId], references: [id])
+    cart   Cart @relation(fields: [cartId], references: [id])
     cartId Int
 
-    quantity Int 
+    quantity Int
 
     ingredients Ingredient[]
 
@@ -124,48 +130,46 @@ model CartItem {
     updatedAt DateTime @updatedAt
 }
 
-enum OrderStatus { 
+// Перечисление статусов заказа
+enum OrderStatus {
     PENDING
     SUCCEEDED
     CANCELED
 }
 
-model Order { 
+// Таблица заказов
+model Order {
     id Int @id @default(autoincrement())
 
-    user User? @relation(fields: [userId], references: [id])
+    user   User? @relation(fields: [userId], references: [id])
     userId Int?
 
     token String
 
     totalAmount Int
-    status OrderStatus
-    paymentId String?
+    status      OrderStatus
+    paymentId   String?
 
     items Json
 
     fullName String
-    phone String
-    address String
-    email String
-    comment String?
+    phone    String
+    address  String
+    email    String
+    comment  String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
 
+// Таблица кодов верификации
 model VerificationCode {
     id Int @id @default(autoincrement())
 
-    user User @relation(fields: [userId], references: [id])
-    userId Int @unique
+    user   User @relation(fields: [userId], references: [id])
+    userId Int  @unique
 
     code String @unique
 
     createdAt DateTime @default(now())
-}
-
-enum UserRole { 
-    USER
-    ADMIN
 }
