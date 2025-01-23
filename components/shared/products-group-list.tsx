@@ -6,10 +6,15 @@ import { ProductCard } from "./product-card";
 import { useIntersection } from "react-use";
 import { useEffect, useRef } from "react";
 import { useCategoryStore } from "@/store/category";
+import { Product, ProductItem } from "@prisma/client";
+
+interface ProductWithItems extends Product {
+    items: ProductItem[];
+}
 
 export interface IProductsGroupListProps {
     className?: string;
-    products: any[];
+    products: ProductWithItems[];
     title: string;
     listClassName?: string;
     categoryId: number;
@@ -26,7 +31,7 @@ export const ProductsGroupList = ({
     const setActiveCategoryId = useCategoryStore(state => state.setActiveId);
 
     const intersection = useIntersection(intersectionRef, {
-        threshold: 0.4,
+        threshold: 0.4
     });
 
     useEffect(() => {
@@ -45,7 +50,7 @@ export const ProductsGroupList = ({
                         id={product.id}
                         name={product.name}
                         price={product.items[0].price}
-                        imgUrl={product.imgUrl}
+                        imgUrl={product.imageUrl}
                     />
                 ))}
             </div>
