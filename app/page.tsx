@@ -42,7 +42,7 @@ export default function Home() {
                                         ]
                                     },
                                     {
-                                        id: 2,
+                                        id: 3,
                                         name: "Пицца 2",
                                         imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
                                         items: [
@@ -52,7 +52,7 @@ export default function Home() {
                                         ]
                                     },
                                     {
-                                        id: 2,
+                                        id: 4,
                                         name: "Пицца 2",
                                         imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
                                         items: [
@@ -62,7 +62,7 @@ export default function Home() {
                                         ]
                                     },
                                     {
-                                        id: 2,
+                                        id: 5,
                                         name: "Пицца 2",
                                         imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
                                         items: [
@@ -99,7 +99,7 @@ export default function Home() {
                                         ]
                                     },
                                     {
-                                        id: 2,
+                                        id: 3,
                                         name: "Пицца 2",
                                         imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
                                         items: [
@@ -109,7 +109,7 @@ export default function Home() {
                                         ]
                                     },
                                     {
-                                        id: 2,
+                                        id: 4,
                                         name: "Пицца 2",
                                         imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
                                         items: [
@@ -119,7 +119,7 @@ export default function Home() {
                                         ]
                                     },
                                     {
-                                        id: 2,
+                                        id: 5,
                                         name: "Пицца 2",
                                         imgUrl: "https://media.dodostatic.net/image/r:292x292/11ef12b2f6afd043932efbbaf24f90df.avif",
                                         items: [
