@@ -19,10 +19,13 @@ export const SearchInput = ({ className }: ISearchInputProps): JSX.Element => {
     const ref = useRef<HTMLInputElement>(null);
 
     useDebounce(
-        () => {
-            api.products.search(searchQuery).then(data => {
-                setProducts(data);
-            });
+        async () => {
+            try {
+                const res = await api.products.search(searchQuery);
+                setProducts(res);
+            } catch (e) {
+                console.log(e);
+            }
         },
         250,
         [searchQuery]
