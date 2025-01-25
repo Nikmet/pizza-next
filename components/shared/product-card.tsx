@@ -14,7 +14,7 @@ export interface IProductCardProps {
 export const ProductCard = ({ className, id, name, price, imgUrl }: IProductCardProps): JSX.Element => {
     return (
         <div className={className}>
-            <Link href={`/product/${id}`}>
+            <Link href={`/product/${id}`} scroll={false}>
                 <div className="flex justify-center p-6 bg-secondary rounded-lg h-[260px]">
                     <img className="w-[215px] h-[215px]" src={imgUrl} alt={name} />
                 </div>
