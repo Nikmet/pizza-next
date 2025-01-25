@@ -13,8 +13,6 @@ export default async function Home() {
         }
     });
 
-    console.log(categories[0].products);
-
     return (
         <>
             <Container className="mt-10">

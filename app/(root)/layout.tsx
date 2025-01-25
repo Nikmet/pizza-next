@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
-import { Nunito } from "next/font/google";
 import { Header } from "@/components/shared";
+import { ReactNode } from "react";
 
 export const metadata: Metadata = {
     title: "Pizza Next App | Главная"
 };
 
 export default function RootLayout({
-    children
+    children,
+    modal
 }: Readonly<{
-    children: React.ReactNode;
+    children: ReactNode;
+    modal: ReactNode;
 }>) {
     return (
         <>
-            <Header />
-            <main className="min-h-screen">{children}</main>
+            <main className="min-h-screen">
+                {modal}
+                <Header />
+                {children}
+            </main>
         </>
     );
 }
