@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { FC } from "react";
 import { Container } from "./container";
 import Image from "next/image";
@@ -6,6 +5,7 @@ import { Button } from "../ui";
 import { ArrowRight, ShoppingCart, User } from "lucide-react";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
+import { cn } from "@/shared/lib/utils";
 
 interface Props {
     className?: string;

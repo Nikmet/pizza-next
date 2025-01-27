@@ -1,12 +1,12 @@
 "use client";
 
-import { Dialog } from "@/components/ui";
-import { cn } from "@/lib/utils";
-import { DialogContent } from "@/components/ui/dialog";
-import { useRouter } from "next/navigation";
-import { ChooseProductForm } from "../choose-product-form";
 import { ProductWithRelations } from "@/@types/prisma";
+import { useRouter } from "next/navigation";
+import { Dialog } from "../../ui";
+import { DialogContent } from "../../ui/dialog";
+import { cn } from "@/shared/lib/utils";
 import { ChoosePizzaForm } from "../choose-pizza-form";
+import { ChooseProductForm } from "../choose-product-form";
 
 export interface IChooseProductModalProps {
     product: ProductWithRelations;

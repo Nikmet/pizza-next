@@ -1,12 +1,12 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { Title } from "./title";
 import { ProductCard } from "./product-card";
 import { useIntersection } from "react-use";
 import { useEffect, useRef } from "react";
-import { useCategoryStore } from "@/store/category";
 import { Product, ProductItem } from "@prisma/client";
+import { useCategoryStore } from "@/shared/store/category";
+import { cn } from "@/shared/lib/utils";
 
 interface ProductWithItems extends Product {
     items: ProductItem[];

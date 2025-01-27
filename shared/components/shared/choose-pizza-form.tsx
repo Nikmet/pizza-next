@@ -1,7 +1,7 @@
-import { cn } from "@/lib/utils";
 import { PizzaImage } from "./pizza-image";
 import { Title } from "./title";
 import { Button } from "../ui";
+import { cn } from "@/shared/lib/utils";
 
 export interface IChoosePizzaFormProps {
     imageUrl: string;

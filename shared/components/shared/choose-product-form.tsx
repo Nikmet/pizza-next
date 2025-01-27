@@ -1,6 +1,6 @@
-import { cn } from "@/lib/utils";
 import { Title } from "./title";
 import { Button } from "../ui";
+import { cn } from "@/shared/lib/utils";
 
 export interface IChooseProductFormProps {
     imageUrl: string;
