@@ -20,14 +20,14 @@ export const ChooseProductModal = ({ product, className }: IChooseProductModalPr
     return (
         <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
             <DialogContent
-                className={cn("p-0 w-[1060px] max-w-[1060px] min-h-[500px] bg-white overflow-hidden", className)}
+                className={cn("p-0 w-[1060px] max-w-[1060px] min-h-[550px] bg-white overflow-hidden", className)}
             >
                 {isPizzaForm ? (
                     <ChoosePizzaForm
                         imageUrl={product.imageUrl}
                         name={product.name}
-                        ingredients={[]}
-                        items={undefined}
+                        ingredients={product.ingredients}
+                        items={product.items}
                         onClickAdd={() => {}}
                     />
                 ) : (
