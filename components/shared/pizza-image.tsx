@@ -1,12 +1,12 @@
 import { cn } from "@/lib/utils";
 
-export interface IProductImageProps {
+export interface IPizzaImageProps {
     className?: string;
     size?: 20 | 30 | 40;
     src: string;
 }
 
-export const ProductImage = ({ className, src, size = 20 }: IProductImageProps): JSX.Element => {
+export const PizzaImage = ({ className, src, size = 20 }: IPizzaImageProps): JSX.Element => {
     return (
         <div className={cn("flex items-center justify-center flex-1 relative w-full", className)}>
             <img
