@@ -3,7 +3,7 @@
 import { ProductWithRelations } from "@/@types/prisma";
 import { useRouter } from "next/navigation";
 import { Dialog } from "../../ui";
-import { DialogContent } from "../../ui/dialog";
+import { DialogContent, DialogTitle } from "../../ui/dialog";
 import { cn } from "@/shared/lib/utils";
 import { ChoosePizzaForm } from "../choose-pizza-form";
 import { ChooseProductForm } from "../choose-product-form";
@@ -21,14 +21,16 @@ export const ChooseProductModal = ({ product, className }: IChooseProductModalPr
         <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
             <DialogContent
                 className={cn("p-0 w-[1060px] max-w-[1060px] min-h-[550px] bg-white overflow-hidden", className)}
+                aria-describedby={undefined}
             >
+                <DialogTitle />
                 {isPizzaForm ? (
                     <ChoosePizzaForm
                         imageUrl={product.imageUrl}
                         name={product.name}
                         ingredients={product.ingredients}
                         items={product.items}
-                        onClickAdd={() => {}}
+                        onClickAddCart={() => {}}
                     />
                 ) : (
                     <ChooseProductForm imageUrl={product.imageUrl} name={product.name} onClickAdd={() => {}} />
