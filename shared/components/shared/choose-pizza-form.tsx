@@ -5,11 +5,11 @@ import { Title } from "./title";
 import { Button } from "../ui";
 import { cn } from "@/shared/lib/utils";
 import { GroupVariants } from "./group-variants";
-import { PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
-import { useState } from "react";
+import { PizzaSize, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
 import { Ingredient, ProductItem } from "@prisma/client";
 import { IngredientCard } from "./ingredient-card";
-import { useSet } from "react-use";
+import { getPizzaInfo } from "@/shared/lib/pizza-info";
+import { usePizzaOptions } from "@/shared/hooks/use-pizza-options";
 
 export interface IChoosePizzaFormProps {
     imageUrl: string;
@@ -28,19 +28,26 @@ export const ChoosePizzaForm = ({
     onClickAddCart,
     className
 }: IChoosePizzaFormProps): JSX.Element => {
-    const [size, setSize] = useState<PizzaSize>(20);
-    const [type, setType] = useState<PizzaType>(1);
+    const { availablePizzaSizes, setSize, setType, size, type, addIngredient, selectedIngredients } =
+        usePizzaOptions(items);
 
-    const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<number>());
+    const { textDetails, totalPrice } = getPizzaInfo({
+        ingredients,
+        items,
+        selectedIngredients,
+        size,
+        type
+    });
 
-    const textDetails = "30см, традиционное тесто";
-
-    const pizzaPrice = items.find(item => item.size === size && item.pizzaType === type)?.price || 0;
-    const ingredientsPrice = ingredients
-        .filter(ingredient => selectedIngredients.has(ingredient.id))
-        .reduce((acc, ingredient) => acc + ingredient.price, 0);
-
-    const totalPrice = pizzaPrice + ingredientsPrice;
+    const handleClickAdd = () => {
+        onClickAddCart();
+        console.log({
+            size,
+            type,
+            ingredients: Array.from(selectedIngredients),
+            totalPrice
+        });
+    };
 
     return (
         <div className={cn("flex flex-1", className)}>
@@ -51,7 +58,7 @@ export const ChoosePizzaForm = ({
 
                 <div className="flex flex-col gap-3 mt-5">
                     <GroupVariants
-                        items={pizzaSizes}
+                        items={availablePizzaSizes}
                         selectedValue={String(size)}
                         onClick={value => setSize(Number(value) as PizzaSize)}
                     />
@@ -75,7 +82,7 @@ export const ChoosePizzaForm = ({
                     </div>
                 </div>
 
-                <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
+                <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" onClick={handleClickAdd}>
                     Добавить в корзину за {totalPrice} ₽
                 </Button>
             </div>
