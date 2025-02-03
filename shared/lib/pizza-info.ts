@@ -14,7 +14,7 @@ export interface IPizzaInfoFullProps {
 export interface IPizzaInfoProps {
     size: PizzaSize;
     type: PizzaType;
-    selectedIngredients: Set<number>;
+    selectedIngredients: Set<{ id: number; name: string }>;
 }
 
 interface IPizzaInfoReturns {
@@ -33,8 +33,14 @@ export function getPizzaInfo({
 export function getPizzaInfo(props: IPizzaInfoProps | IPizzaInfoFullProps): IPizzaInfoReturns {
     let totalPrice = 0;
 
-    if ('items' in props && 'ingredients' in props) {
-        totalPrice = calcPizzaTotalPrice(props.ingredients!, props.items!, props.size, props.type, props.selectedIngredients);
+    if ("items" in props && "ingredients" in props) {
+        totalPrice = calcPizzaTotalPrice(
+            props.ingredients!,
+            props.items!,
+            props.size,
+            props.type,
+            props.selectedIngredients
+        );
     }
 
     const textDetails = `${props.size}см, ${mapPizzaType[props.type]} тесто  ${

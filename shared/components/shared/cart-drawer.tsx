@@ -1,10 +1,14 @@
+"use client";
+
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/components/ui/sheet";
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { Button } from "../ui";
 import { ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
 import { getPizzaInfo } from "@/shared/lib/pizza-info";
+import { useCartStore } from "@/shared/store/cart";
+import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 
 export interface ICartDrawerProps {
     className?: string;
@@ -12,6 +16,12 @@ export interface ICartDrawerProps {
 }
 
 export const CartDrawer = ({ className, children }: ICartDrawerProps): JSX.Element => {
+    const { fetchCartItems, items, totalAmount } = useCartStore();
+
+    useEffect(() => {
+        fetchCartItems();
+    }, []);
+
     return (
         <Sheet>
             <SheetTrigger asChild>{children}</SheetTrigger>
@@ -26,20 +36,25 @@ export const CartDrawer = ({ className, children }: ICartDrawerProps): JSX.Eleme
                 {/* sheet body */}
                 <div className="-mx-6 mt-5 overflow-auto flex-1 scrollbar">
                     <div className="mb-2">
-                        <CartDrawerItem
-                            id={1}
-                            imageUrl="https://media.dodostatic.net/image/r:584x584/11EE7D61706D472F9A5D71EB94149304.webp"
-                            details={
-                                getPizzaInfo({
-                                    size: 30,
-                                    type: 1,
-                                    selectedIngredients: new Set()
-                                }).textDetails
-                            }
-                            name={"Чоризо Фреш"}
-                            price={300}
-                            quantity={2}
-                        />
+                        {items.map(item => (
+                            <CartDrawerItem
+                                key={item.id}
+                                id={item.id}
+                                imageUrl={item.imageUrl}
+                                details={
+                                    item.pizzaSize
+                                        ? getPizzaInfo({
+                                              size: item.pizzaSize as PizzaSize,
+                                              type: item.pizzaType as PizzaType,
+                                              selectedIngredients: new Set(item.ingredients)
+                                          }).textDetails
+                                        : ""
+                                }
+                                name={item.name}
+                                price={item.price}
+                                quantity={item.quantity}
+                            />
+                        ))}
                     </div>
                 </div>
 
@@ -52,7 +67,7 @@ export const CartDrawer = ({ className, children }: ICartDrawerProps): JSX.Eleme
                                 <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
                             </span>
 
-                            <span className="font-bold text-lg">{0} ₽</span>
+                            <span className="font-bold text-lg">{totalAmount} ₽</span>
                         </div>
 
                         <Link href="/checkout">
