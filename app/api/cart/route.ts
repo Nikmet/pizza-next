@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 
         return NextResponse.json(userCart);
     } catch (e) {
-        console.log(e);
+        console.error(e);
         return NextResponse.json({ message: e });
     }
 }
