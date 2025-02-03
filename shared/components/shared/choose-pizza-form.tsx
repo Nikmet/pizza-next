@@ -8,8 +8,8 @@ import { GroupVariants } from "./group-variants";
 import { PizzaSize, PizzaType, pizzaTypes } from "@/shared/constants/pizza";
 import { Ingredient, ProductItem } from "@prisma/client";
 import { IngredientCard } from "./ingredient-card";
-import { getPizzaInfo } from "@/shared/lib/pizza-info";
 import { usePizzaOptions } from "@/shared/hooks/use-pizza-options";
+import { getPizzaInfo } from "@/shared/lib/pizza-info";
 
 export interface IChoosePizzaFormProps {
     imageUrl: string;
@@ -32,11 +32,11 @@ export const ChoosePizzaForm = ({
         usePizzaOptions(items);
 
     const { textDetails, totalPrice } = getPizzaInfo({
-        ingredients,
-        items,
         selectedIngredients,
         size,
-        type
+        type,
+        ingredients,
+        items
     });
 
     const handleClickAdd = () => {
