@@ -29,16 +29,15 @@ export const CartDrawer = ({ className, children }: ICartDrawerProps): JSX.Eleme
                 {/* sheet header */}
                 <SheetHeader>
                     <SheetTitle>
-                        В корзине <span className="font-bold">3 товара</span>
+                        В корзине <span className="font-bold">{items.length} товара</span>
                     </SheetTitle>
                 </SheetHeader>
 
                 {/* sheet body */}
                 <div className="-mx-6 mt-5 overflow-auto flex-1 scrollbar">
-                    <div className="mb-2">
-                        {items.map(item => (
+                    {items.map(item => (
+                        <div className="mb-2" key={item.id}>
                             <CartDrawerItem
-                                key={item.id}
                                 id={item.id}
                                 imageUrl={item.imageUrl}
                                 details={
@@ -54,8 +53,8 @@ export const CartDrawer = ({ className, children }: ICartDrawerProps): JSX.Eleme
                                 price={item.price}
                                 quantity={item.quantity}
                             />
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
 
                 {/* sheet footer */}
