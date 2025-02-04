@@ -43,6 +43,7 @@ export function getPizzaInfo(props: IPizzaInfoProps | IPizzaInfoFullProps): IPiz
         );
     }
 
+    //TODO: Сделать вывод списка ингредиентов
     const textDetails = `${props.size}см, ${mapPizzaType[props.type]} тесто  ${
         props.selectedIngredients.size != 0
             ? "+ " +

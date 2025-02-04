@@ -10,6 +10,7 @@ import { getPizzaInfo } from "@/shared/lib/pizza-info";
 import { useCartStore } from "@/shared/store/cart";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { useShallow } from "zustand/react/shallow";
+import { cn } from "@/shared/lib/utils";
 
 export interface ICartDrawerProps {
     className?: string;
@@ -38,7 +39,7 @@ export const CartDrawer = memo(function CartDrawer({ className, children }: ICar
     return (
         <Sheet>
             <SheetTrigger asChild>{children}</SheetTrigger>
-            <SheetContent className="flex flex-col justify-between pb-0 bg-[#f4f1ee]">
+            <SheetContent className={cn("flex flex-col justify-between pb-0 bg-[#f4f1ee]")}>
                 {/* sheet header */}
                 <SheetHeader>
                     <SheetTitle>

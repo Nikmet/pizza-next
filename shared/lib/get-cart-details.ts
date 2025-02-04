@@ -36,5 +36,7 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
         };
     });
 
-    return { items, totalAmount: data.totalAmount };
+    const totalAmount = items.reduce((acc, item) => acc + item.price, 0);
+
+    return { items, totalAmount };
 };
