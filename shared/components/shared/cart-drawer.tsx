@@ -2,25 +2,32 @@
 
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "@/shared/components/ui/sheet";
 import Link from "next/link";
-import { ReactNode, useEffect } from "react";
+import { memo, ReactNode, useEffect } from "react";
 import { Button } from "../ui";
 import { ArrowRight } from "lucide-react";
 import { CartDrawerItem } from "./cart-drawer-item";
 import { getPizzaInfo } from "@/shared/lib/pizza-info";
 import { useCartStore } from "@/shared/store/cart";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
+import { useShallow } from "zustand/react/shallow";
 
 export interface ICartDrawerProps {
     className?: string;
     children?: ReactNode;
 }
 
-export const CartDrawer = ({ className, children }: ICartDrawerProps): JSX.Element => {
-    const { fetchCartItems, items, totalAmount } = useCartStore();
+export const CartDrawer = memo(function CartDrawer({ className, children }: ICartDrawerProps): JSX.Element {
+    const [totalAmount, fetchCartItems, updateItemQuantity, items] = useCartStore(
+        useShallow(state => [state.totalAmount, state.fetchCartItems, state.updateItemQuantity, state.items])
+    );
 
     useEffect(() => {
         fetchCartItems();
     }, []);
+
+    const onClickCountButton = (id: number, quantity: number, type: "plus" | "minus") => {
+        updateItemQuantity(String(id), type == "plus" ? quantity + 1 : quantity - 1);
+    };
 
     return (
         <Sheet>
@@ -52,6 +59,7 @@ export const CartDrawer = ({ className, children }: ICartDrawerProps): JSX.Eleme
                                 name={item.name}
                                 price={item.price}
                                 quantity={item.quantity}
+                                onClickCountButton={type => onClickCountButton(item.id, item.quantity, type)}
                             />
                         </div>
                     ))}
@@ -80,4 +88,4 @@ export const CartDrawer = ({ className, children }: ICartDrawerProps): JSX.Eleme
             </SheetContent>
         </Sheet>
     );
-};
+});

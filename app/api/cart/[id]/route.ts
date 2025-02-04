@@ -34,7 +34,7 @@ export async function PATCH(req: NextRequest, { params }: { params: { id: string
 
         const updatedUserCart = await UpdateCartTotalAmount(token);
 
-        return NextResponse.json({ message: "Корзина обновлена", newCart: updatedUserCart });
+        return NextResponse.json(updatedUserCart);
     } catch (e) {
         console.warn("[CART_PATCH] server error", e);
         return NextResponse.json({ message: "Не удалось обновить корзину" }, { status: 500 });
