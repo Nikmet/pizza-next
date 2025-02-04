@@ -18,13 +18,14 @@ export interface ICartDrawerProps {
 }
 
 export const CartDrawer = memo(function CartDrawer({ className, children }: ICartDrawerProps): JSX.Element {
-    const [totalAmount, fetchCartItems, updateItemQuantity, items, removeCartItem] = useCartStore(
+    const [totalAmount, fetchCartItems, updateItemQuantity, items, removeCartItem, loading] = useCartStore(
         useShallow(state => [
             state.totalAmount,
             state.fetchCartItems,
             state.updateItemQuantity,
             state.items,
-            state.removeCartItem
+            state.removeCartItem,
+            state.loading
         ])
     );
 
@@ -86,7 +87,7 @@ export const CartDrawer = memo(function CartDrawer({ className, children }: ICar
                         </div>
 
                         <Link href="/checkout">
-                            <Button type="submit" className="w-full h-12 text-base">
+                            <Button type="submit" className="w-full h-12 text-base" loading={loading}>
                                 Оформить заказ
                                 <ArrowRight className="w-5 ml-2" />
                             </Button>
