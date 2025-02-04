@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { api } from "../services/api-client";
 import { CartStateItem, getCartDetails } from "../lib/get-cart-details";
 import { devtools } from "zustand/middleware";
+import { CreateCartItemValues } from "../services/dto/cart.dto";
 
 export interface CartState {
     loading: boolean;
@@ -51,7 +52,22 @@ export const useCartStore = create<CartState>()(
                 set({ loading: false });
             }
         },
-        addCartItem: async (values: any) => {},
+
+        // Добавление позиции в корзину
+        addCartItem: async (values: CreateCartItemValues) => {
+            try {
+                set({ loading: true, error: false });
+                const data = await api.cart.addCartItem(values);
+                set(getCartDetails(data));
+            } catch (e) {
+                console.log(e);
+                set({ error: true });
+            } finally {
+                set({ loading: false });
+            }
+        },
+
+        // Удаление позиции из корзины
         removeCartItem: async (id: string) => {
             try {
                 set({ loading: true, error: false });

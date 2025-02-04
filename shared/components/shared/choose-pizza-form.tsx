@@ -16,7 +16,7 @@ export interface IChoosePizzaFormProps {
     name: string;
     ingredients: Ingredient[];
     items: ProductItem[];
-    onClickAddCart: VoidFunction;
+    onClickAddCart: (itemId: number, ingredients: number[]) => void;
     className?: string;
 }
 
@@ -28,7 +28,7 @@ export const ChoosePizzaForm = ({
     onClickAddCart,
     className
 }: IChoosePizzaFormProps): JSX.Element => {
-    const { availablePizzaSizes, setSize, setType, size, type, addIngredient, selectedIngredients } =
+    const { availablePizzaSizes, setSize, setType, size, type, addIngredient, selectedIngredients, currentItemID } =
         usePizzaOptions(items);
 
     const { textDetails, totalPrice } = getPizzaInfo({
@@ -40,7 +40,7 @@ export const ChoosePizzaForm = ({
     });
 
     const handleClickAdd = () => {
-        onClickAddCart();
+        onClickAddCart(currentItemID, Array.from(selectedIngredients));
         console.log({
             size,
             type,

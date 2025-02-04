@@ -7,6 +7,7 @@ import { DialogContent, DialogTitle } from "../../ui/dialog";
 import { cn } from "@/shared/lib/utils";
 import { ChoosePizzaForm } from "../choose-pizza-form";
 import { ChooseProductForm } from "../choose-product-form";
+import { useCartStore } from "@/shared/store/cart";
 
 export interface IChooseProductModalProps {
     product: ProductWithRelations;
@@ -15,7 +16,24 @@ export interface IChooseProductModalProps {
 
 export const ChooseProductModal = ({ product, className }: IChooseProductModalProps): JSX.Element => {
     const router = useRouter();
-    const isPizzaForm = Boolean(product.items[0].pizzaType);
+    const firstItem = product.items[0];
+    const isPizzaForm = Boolean(firstItem.pizzaType);
+    const addCartItem = useCartStore(state => state.addCartItem);
+
+    const onAddProduct = () => {
+        console.log(firstItem.id);
+
+        addCartItem({
+            productItemId: firstItem.id
+        });
+    };
+
+    const onAddPizza = (productItemId: number, ingredients: number[]) => {
+        addCartItem({
+            productItemId,
+            ingredients
+        });
+    };
 
     return (
         <Dialog open={Boolean(product)} onOpenChange={() => router.back()}>
@@ -30,10 +48,10 @@ export const ChooseProductModal = ({ product, className }: IChooseProductModalPr
                         name={product.name}
                         ingredients={product.ingredients}
                         items={product.items}
-                        onClickAddCart={() => {}}
+                        onClickAddCart={(itemId, ingredients) => onAddPizza(itemId, ingredients)}
                     />
                 ) : (
-                    <ChooseProductForm imageUrl={product.imageUrl} name={product.name} onClickAdd={() => {}} />
+                    <ChooseProductForm imageUrl={product.imageUrl} name={product.name} onClickAdd={onAddProduct} totalPrice={firstItem.price} />
                 )}
             </DialogContent>
         </Dialog>
