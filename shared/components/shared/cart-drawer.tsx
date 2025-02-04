@@ -17,8 +17,14 @@ export interface ICartDrawerProps {
 }
 
 export const CartDrawer = memo(function CartDrawer({ className, children }: ICartDrawerProps): JSX.Element {
-    const [totalAmount, fetchCartItems, updateItemQuantity, items] = useCartStore(
-        useShallow(state => [state.totalAmount, state.fetchCartItems, state.updateItemQuantity, state.items])
+    const [totalAmount, fetchCartItems, updateItemQuantity, items, removeCartItem] = useCartStore(
+        useShallow(state => [
+            state.totalAmount,
+            state.fetchCartItems,
+            state.updateItemQuantity,
+            state.items,
+            state.removeCartItem
+        ])
     );
 
     useEffect(() => {
@@ -60,6 +66,7 @@ export const CartDrawer = memo(function CartDrawer({ className, children }: ICar
                                 price={item.price}
                                 quantity={item.quantity}
                                 onClickCountButton={type => onClickCountButton(item.id, item.quantity, type)}
+                                onClickRemoveButton={() => removeCartItem(String(item.id))}
                             />
                         </div>
                     ))}

@@ -41,7 +41,6 @@ export const useCartStore = create<CartState>()(
             try {
                 set({ loading: true, error: false });
                 const data = await api.cart.updateItemQuantity(id, quantity);
-                console.log(data);
                 set(getCartDetails(data));
             } catch (e) {
                 console.log(e);
@@ -51,6 +50,17 @@ export const useCartStore = create<CartState>()(
             }
         },
         addCartItem: async (values: any) => {},
-        removeCartItem: async (id: string) => {}
+        removeCartItem: async (id: string) => {
+            try {
+                set({ loading: true, error: false });
+                const data = await api.cart.removeCartItem(id);
+                set(getCartDetails(data));
+            } catch (e) {
+                console.log(e);
+                set({ error: true });
+            } finally {
+                set({ loading: false });
+            }
+        }
     }))
 );
