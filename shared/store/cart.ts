@@ -19,10 +19,12 @@ export const useCartStore = create<CartState>((set, get) => ({
     error: false,
     totalAmount: 0,
     items: [],
+
+    // Функция для получения позиций корзины
     fetchCartItems: async () => {
         try {
             set({ loading: true, error: false });
-            const data = await api.cart.fetchCart();
+            const data = await api.cart.getCart();
             set(getCartDetails(data));
         } catch (e) {
             console.log(e);
@@ -31,7 +33,20 @@ export const useCartStore = create<CartState>((set, get) => ({
             set({ loading: false });
         }
     },
-    updateItemQuantity: async (id: string, quantity: number) => {},
+
+    // Обновление количество позиции в корзине
+    updateItemQuantity: async (id: string, quantity: number) => {
+        try {
+            set({ loading: true, error: false });
+            const data = await api.cart.updateItemQuantity(id, quantity);
+            set(getCartDetails(data));
+        } catch (e) {
+            console.log(e);
+            set({ error: true });
+        } finally {
+            set({ loading: false });
+        }
+    },
     addCartItem: async (values: any) => {},
     removeCartItem: async (id: string) => {}
 }));
