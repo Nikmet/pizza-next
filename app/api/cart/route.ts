@@ -61,6 +61,7 @@ export async function POST(req: NextRequest) {
             }
         });
 
+        //TODO: Допилить логику обновления количества товара в корзине
         if (findCartItem) {
             await prisma.cartItem.update({
                 where: {

@@ -9,6 +9,7 @@ export interface CartState {
     error: boolean;
     totalAmount: number;
     items: CartStateItem[];
+    totalCount: () => number;
 
     fetchCartItems: () => Promise<void>;
     updateItemQuantity: (id: string, quantity: number) => Promise<void>;
@@ -22,6 +23,7 @@ export const useCartStore = create<CartState>()(
         error: false,
         totalAmount: 0,
         items: [],
+        totalCount: () => get().items.reduce((acc, item) => acc + item.quantity, 0),
 
         // Функция для получения позиций корзины
         fetchCartItems: async () => {

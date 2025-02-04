@@ -17,6 +17,7 @@ export interface IChoosePizzaFormProps {
     ingredients: Ingredient[];
     items: ProductItem[];
     onClickAddCart: (itemId: number, ingredients: number[]) => void;
+    loading?: boolean;
     className?: string;
 }
 
@@ -26,6 +27,7 @@ export const ChoosePizzaForm = ({
     items,
     name,
     onClickAddCart,
+    loading,
     className
 }: IChoosePizzaFormProps): JSX.Element => {
     const { availablePizzaSizes, setSize, setType, size, type, addIngredient, selectedIngredients, currentItemID } =
@@ -40,6 +42,7 @@ export const ChoosePizzaForm = ({
     });
 
     const handleClickAdd = () => {
+        if (!currentItemID) return;
         onClickAddCart(currentItemID, Array.from(selectedIngredients));
         console.log({
             size,
@@ -82,7 +85,11 @@ export const ChoosePizzaForm = ({
                     </div>
                 </div>
 
-                <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" onClick={handleClickAdd}>
+                <Button
+                    className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
+                    onClick={handleClickAdd}
+                    loading={loading}
+                >
                     Добавить в корзину за {totalPrice} ₽
                 </Button>
             </div>

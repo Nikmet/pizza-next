@@ -8,6 +8,7 @@ export interface IChooseProductFormProps {
     onClickAdd: VoidFunction;
     className?: string;
     totalPrice: number;
+    loading?: boolean;
 }
 
 export const ChooseProductForm = ({
@@ -15,6 +16,7 @@ export const ChooseProductForm = ({
     name,
     onClickAdd,
     className,
+    loading,
     totalPrice
 }: IChooseProductFormProps): JSX.Element => {
     return (
@@ -29,7 +31,7 @@ export const ChooseProductForm = ({
             <div className="w-[490px] bg-[#f7f6f5] p-7">
                 <Title text={name} size="md" className="font-extrabold mb-1" />
 
-                <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" onClick={onClickAdd}>
+                <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10" onClick={onClickAdd} loading={loading}>
                     Добавить в корзину за {totalPrice} ₽
                 </Button>
             </div>

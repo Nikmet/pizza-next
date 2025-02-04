@@ -13,7 +13,7 @@ interface ReturnProps {
         value: string;
         disabled: boolean;
     }[];
-    currentItemID: number;
+    currentItemID: number | undefined;
     setSize: (size: PizzaSize) => void;
     setType: (type: PizzaType) => void;
     addIngredient: (key: number) => void;
@@ -26,7 +26,7 @@ export const usePizzaOptions = (items: ProductItem[]): ReturnProps => {
 
     const availablePizzaSizes = getAvailablePizzaSizes(items, type);
 
-    const currentItemID = items.find(item => item.size === size && item.pizzaType === type)!.id;
+    const currentItemID = items.find(item => item.size === size && item.pizzaType === type)?.id;
 
     useEffect(() => {
         const isAvailableSize = availablePizzaSizes.find(item => Number(item.value) === size && !item.disabled);
