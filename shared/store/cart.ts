@@ -72,14 +72,21 @@ export const useCartStore = create<CartState>()(
         // Удаление позиции из корзины
         removeCartItem: async (id: string) => {
             try {
-                set({ loading: true, error: false });
+                set(state => ({
+                    loading: true,
+                    error: false,
+                    items: state.items.map(item => (item.id === Number(id) ? { ...item, disabled: true } : item))
+                }));
                 const data = await api.cart.removeCartItem(id);
                 set(getCartDetails(data));
             } catch (e) {
                 console.log(e);
                 set({ error: true });
             } finally {
-                set({ loading: false });
+                set(state => ({
+                    loading: true,
+                    items: state.items.map(item => (item.id === Number(id) ? { ...item, disabled: false } : item))
+                }));
             }
         }
     }))
