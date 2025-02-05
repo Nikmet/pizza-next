@@ -10,6 +10,7 @@ import { ChooseProductForm } from "../choose-product-form";
 import { useCartStore } from "@/shared/store/cart";
 import toast from "react-hot-toast";
 import { useShallow } from "zustand/react/shallow";
+import { ProductForm } from "../product-form";
 
 export interface IChooseProductModalProps {
     product: ProductWithRelations;
@@ -45,24 +46,7 @@ export const ChooseProductModal = ({ product, className }: IChooseProductModalPr
                 aria-describedby={undefined}
             >
                 <DialogTitle className="hidden" />
-                {isPizzaForm ? (
-                    <ChoosePizzaForm
-                        imageUrl={product.imageUrl}
-                        name={product.name}
-                        ingredients={product.ingredients}
-                        items={product.items}
-                        onClickAddCart={(itemId, ingredients) => onSubmit(itemId, ingredients)}
-                        loading={loading}
-                    />
-                ) : (
-                    <ChooseProductForm
-                        imageUrl={product.imageUrl}
-                        name={product.name}
-                        onClickAdd={() => onSubmit()}
-                        totalPrice={firstItem.price}
-                        loading={loading}
-                    />
-                )}
+                <ProductForm product={product} />
             </DialogContent>
         </Dialog>
     );
