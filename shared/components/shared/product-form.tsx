@@ -10,9 +10,10 @@ import { ProductWithRelations } from "@/@types/prisma";
 export interface IProductFormProps {
     className?: string;
     product: ProductWithRelations;
+    _onSubmit?: VoidFunction;
 }
 
-export const ProductForm = ({ product, className }: IProductFormProps): JSX.Element => {
+export const ProductForm = ({ product, className, _onSubmit }: IProductFormProps): JSX.Element => {
     const [addCartItem, loading] = useCartStore(useShallow(state => [state.addCartItem, state.loading]));
 
     const firstItem = product.items[0];
@@ -27,6 +28,7 @@ export const ProductForm = ({ product, className }: IProductFormProps): JSX.Elem
                 ingredients
             });
             toast.success(`${product.name} успешно добавлен в корзину`);
+            _onSubmit?.();
         } catch (e) {
             toast.error("Не удалось добавить продукт в корзину");
             console.error(e);
