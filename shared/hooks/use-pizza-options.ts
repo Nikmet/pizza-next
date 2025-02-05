@@ -7,7 +7,7 @@ import { useSet } from "react-use";
 interface ReturnProps {
     size: PizzaSize;
     type: PizzaType;
-    selectedIngredients: Set<number>;
+    selectedIngredients: Set<{ id: number; name: string }>;
     availablePizzaSizes: {
         name: string;
         value: string;
@@ -16,13 +16,13 @@ interface ReturnProps {
     currentItemID: number | undefined;
     setSize: (size: PizzaSize) => void;
     setType: (type: PizzaType) => void;
-    addIngredient: (key: number) => void;
+    addIngredient: (key: { id: number; name: string }) => void;
 }
 
 export const usePizzaOptions = (items: ProductItem[]): ReturnProps => {
     const [size, setSize] = useState<PizzaSize>(20);
     const [type, setType] = useState<PizzaType>(1);
-    const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<number>());
+    const [selectedIngredients, { toggle: addIngredient }] = useSet(new Set<{ id: number; name: string }>());
 
     const availablePizzaSizes = getAvailablePizzaSizes(items, type);
 

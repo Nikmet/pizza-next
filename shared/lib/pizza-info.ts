@@ -1,6 +1,6 @@
 import { Ingredient, ProductItem } from "@prisma/client";
 import { calcPizzaTotalPrice } from "./calc-pizza-total-price";
-import { mapPizzaType, PizzaSize, PizzaType } from "../constants/pizza";
+import { mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes } from "../constants/pizza";
 import { declOfNum } from "./declOfNum";
 
 export interface IPizzaInfoFullProps {
@@ -8,7 +8,7 @@ export interface IPizzaInfoFullProps {
     items?: ProductItem[];
     size: PizzaSize;
     type: PizzaType;
-    selectedIngredients: Set<number>;
+    selectedIngredients: Set<{ id: number; name: string }>;
 }
 
 export interface IPizzaInfoProps {
@@ -43,18 +43,21 @@ export function getPizzaInfo(props: IPizzaInfoProps | IPizzaInfoFullProps): IPiz
         );
     }
 
-    //TODO: Сделать вывод списка ингредиентов
-    const textDetails = `${props.size}см, ${mapPizzaType[props.type]} тесто  ${
-        props.selectedIngredients.size != 0
-            ? "+ " +
-              props.selectedIngredients.size +
-              " " +
-              declOfNum(props.selectedIngredients.size, ["ингредиент", "ингредиента", "ингредиентов"])
-            : ""
-    } `;
+    const details: string[] = [];
+
+    if (props.size && props.type) {
+        const typeName = mapPizzaType[props.type];
+        details.push(`${typeName}, ${props.size} см`);
+    }
+
+    if (props.selectedIngredients) {
+        const arrIngredients = [];
+        arrIngredients.push(...props.selectedIngredients);
+        details.push(...arrIngredients.map(ingredient => ingredient.name));
+    }
 
     return {
         totalPrice,
-        textDetails
+        textDetails: details.join(", ")
     };
 }

@@ -20,11 +20,11 @@ export const calcPizzaTotalPrice = (
     items: ProductItem[],
     size: PizzaSize,
     type: PizzaType,
-    selectedIngredients: Set<number>
+    selectedIngredients: Set<{ id: number; name: string }>
 ): number => {
     const pizzaPrice = items.find(item => item.size === size && item.pizzaType === type)?.price || 0;
     const ingredientsPrice = ingredients
-        .filter(ingredient => selectedIngredients.has(ingredient.id))
+        .filter(ingredient => selectedIngredients.has(ingredient))
         .reduce((acc, ingredient) => acc + ingredient.price, 0);
 
     return pizzaPrice + ingredientsPrice;

@@ -43,7 +43,10 @@ export const ChoosePizzaForm = ({
 
     const handleClickAdd = () => {
         if (!currentItemID) return;
-        onClickAddCart(currentItemID, Array.from(selectedIngredients));
+        onClickAddCart(
+            currentItemID,
+            Array.from(selectedIngredients.values()).map(item => item.id)
+        );
         console.log({
             size,
             type,
@@ -78,8 +81,8 @@ export const ChoosePizzaForm = ({
                             <IngredientCard
                                 key={ingredient.id}
                                 {...ingredient}
-                                active={selectedIngredients.has(ingredient.id)}
-                                onClick={() => addIngredient(ingredient.id)}
+                                active={selectedIngredients.has(ingredient)}
+                                onClick={() => addIngredient(ingredient)}
                             />
                         ))}
                     </div>
