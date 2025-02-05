@@ -7,14 +7,11 @@ import { useEffect, useRef } from "react";
 import { Product, ProductItem } from "@prisma/client";
 import { useCategoryStore } from "@/shared/store/category";
 import { cn } from "@/shared/lib/utils";
-
-interface ProductWithItems extends Product {
-    items: ProductItem[];
-}
+import { ProductWithRelations } from "@/@types/prisma";
 
 export interface IProductsGroupListProps {
     className?: string;
-    products: ProductWithItems[];
+    products: ProductWithRelations[];
     title: string;
     listClassName?: string;
     categoryId: number;
@@ -51,6 +48,7 @@ export const ProductsGroupList = ({
                         name={product.name}
                         price={product.items[0].price}
                         imgUrl={product.imageUrl}
+                        ingredients={product.ingredients}
                     />
                 ))}
             </div>
