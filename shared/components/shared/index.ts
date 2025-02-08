@@ -20,5 +20,6 @@ export { IngredientCard } from "./ingredient-card";
 export { CartButton } from "./cart-button";
 export { CartDrawer } from "./cart-drawer";
 export { WhiteBlock } from "./white-block";
-export { CheckoutDetailsItem } from "./checkout-details-item"
-export { CheckoutItem } from './checkout-item'
+export { CheckoutDetailsItem } from "./checkout-details-item";
+export { CheckoutItem } from "./checkout-item";
+export { CheckoutItemSkeleton } from "./checkout-item-skeleton";

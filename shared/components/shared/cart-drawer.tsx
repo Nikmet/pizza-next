@@ -21,27 +21,14 @@ import { useShallow } from "zustand/react/shallow";
 import { cn } from "@/shared/lib/utils";
 import Image from "next/image";
 import { Title } from "./title";
+import { useCart } from "@/shared/hooks/use-cart";
 
 export interface ICartDrawerProps {
-    className?: string;
     children?: ReactNode;
 }
 
-export const CartDrawer = memo(function CartDrawer({ className, children }: ICartDrawerProps): JSX.Element {
-    const [totalAmount, fetchCartItems, updateItemQuantity, items, removeCartItem, loading] = useCartStore(
-        useShallow(state => [
-            state.totalAmount,
-            state.fetchCartItems,
-            state.updateItemQuantity,
-            state.items,
-            state.removeCartItem,
-            state.loading
-        ])
-    );
-
-    useEffect(() => {
-        fetchCartItems();
-    }, []);
+export const CartDrawer = memo(function CartDrawer({ children }: ICartDrawerProps): JSX.Element {
+    const { items, loading, removeCartItem, totalAmount, updateItemQuantity } = useCart();
 
     const onClickCountButton = (id: number, quantity: number, type: "plus" | "minus") => {
         updateItemQuantity(String(id), type == "plus" ? quantity + 1 : quantity - 1);

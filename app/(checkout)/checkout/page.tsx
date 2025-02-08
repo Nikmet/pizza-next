@@ -1,8 +1,19 @@
-import { CheckoutDetailsItem, Container, Title, WhiteBlock } from "@/shared/components/shared";
+"use client";
+
+import { CheckoutDetailsItem, CheckoutItem, Container, Title, WhiteBlock } from "@/shared/components/shared";
 import { Button, Input, Textarea } from "@/shared/components/ui";
+import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
+import { useCart } from "@/shared/hooks/use-cart";
+import { getPizzaInfo } from "@/shared/lib/pizza-info";
 import { ArrowRight, Package, Percent, Truck } from "lucide-react";
 
 export default function CheckoutPage() {
+    const { items, loading, removeCartItem, totalAmount, updateItemQuantity } = useCart();
+
+    const onClickCountButton = (id: number, quantity: number, type: "plus" | "minus") => {
+        updateItemQuantity(String(id), type == "plus" ? quantity + 1 : quantity - 1);
+    };
+
     return (
         <Container className="mt-10">
             <Title text="Оформление заказа" size="lg" className="font-extrabold mb-8" />
@@ -10,7 +21,32 @@ export default function CheckoutPage() {
             <div className="flex gap-10">
                 {/* {Левая часть} */}
                 <div className="flex flex-col gap-10 flex-1 mb-20">
-                    <WhiteBlock title="1. Корзина"></WhiteBlock>
+                    <WhiteBlock title="1. Корзина">
+                        <div className="flex flex-col gap-5">
+                            {items.map(item => (
+                                <CheckoutItem
+                                    key={item.id}
+                                    id={item.id}
+                                    imageUrl={item.imageUrl}
+                                    details={
+                                        item.pizzaSize
+                                            ? getPizzaInfo({
+                                                  size: item.pizzaSize as PizzaSize,
+                                                  type: item.pizzaType as PizzaType,
+                                                  selectedIngredients: new Set(item.ingredients)
+                                              }).textDetails
+                                            : ""
+                                    }
+                                    name={item.name}
+                                    price={item.price}
+                                    quantity={item.quantity}
+                                    disabled={item.disabled}
+                                    onClickCountButton={type => onClickCountButton(item.id, item.quantity, type)}
+                                    onClickRemove={() => removeCartItem(String(item.id))}
+                                />
+                            ))}
+                        </div>
+                    </WhiteBlock>
                     <WhiteBlock title="2. Персональные данные">
                         <div className="grid grid-cols-2 gap-5">
                             <Input name="firstName" placeholder="Имя" className="text-base" />
@@ -37,7 +73,7 @@ export default function CheckoutPage() {
 
                         <CheckoutDetailsItem
                             title="Стоимость без налога:"
-                            total="1000"
+                            total={String(totalAmount)}
                             icon={<Package className=" text-gray-300" size={18} />}
                         />
                         <CheckoutDetailsItem
