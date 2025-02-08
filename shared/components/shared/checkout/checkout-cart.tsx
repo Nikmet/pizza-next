@@ -4,22 +4,26 @@ import { WhiteBlock } from "../white-block";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { State } from "react-use/lib/useMouse";
 import { CartStateItem } from "@/shared/lib/get-cart-details";
+import { CheckoutItemSkeleton } from "../checkout-item-skeleton";
 
 export interface ICheckoutCartProps {
     className?: string;
     items: CartStateItem[];
     onClickCountButton: (id: number, quantity: number, type: "plus" | "minus") => void;
     removeCartItem: (id: string) => void;
+    loading?: boolean;
 }
 
 export const CheckoutCart = ({
     items,
     onClickCountButton,
     removeCartItem,
+    loading,
     className
 }: ICheckoutCartProps): JSX.Element => {
     return (
         <WhiteBlock title="1. Корзина" className={className}>
+            {loading && items.map(i => <CheckoutItemSkeleton key={i.id} />)}
             <div className="flex flex-col gap-5">
                 {items.map(item => (
                     <CheckoutItem

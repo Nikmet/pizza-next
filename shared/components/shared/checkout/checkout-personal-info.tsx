@@ -1,3 +1,5 @@
+"use client";
+
 import { FormInput } from "../form-components/form-input";
 import { WhiteBlock } from "../white-block";
 
@@ -12,7 +14,8 @@ export const CheckoutPersonalInfo = ({ className }: ICheckoutPersonalInfoProps):
                 <FormInput name="firstName" placeholder="Имя" className="text-base" />
                 <FormInput name="lastName" placeholder="Фамилия" className="text-base" />
                 <FormInput name="email" placeholder="E-mail" className="text-base" />
-                <FormInput name="phone" placeholder="Телефон" className="text-base" />
+                {/* //TODO: Сделать маску */}
+                <FormInput name="phone" placeholder="Номер телефона" className="text-base" />
             </div>
         </WhiteBlock>
     );

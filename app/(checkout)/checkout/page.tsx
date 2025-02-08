@@ -2,6 +2,7 @@
 
 import { FormProvider, useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCart } from "@/shared/hooks/use-cart";
 
 import {
     CheckoutAddressForm,
@@ -13,10 +14,9 @@ import {
     Container,
     Title
 } from "@/shared/components/shared";
-import { useCart } from "@/shared/hooks/use-cart";
 
 export default function CheckoutPage() {
-    const { items, removeCartItem, totalAmount, updateItemQuantity } = useCart();
+    const { items, removeCartItem, totalAmount, updateItemQuantity, loading } = useCart();
 
     const form = useForm<CheckoutFormValues>({
         resolver: zodResolver(checkoutFormSchema),
@@ -47,6 +47,7 @@ export default function CheckoutPage() {
                         {/* {Левая часть} */}
                         <div className="flex flex-col gap-10 flex-1 mb-20">
                             <CheckoutCart
+                                loading={loading}
                                 items={items}
                                 onClickCountButton={onClickCountButton}
                                 removeCartItem={removeCartItem}

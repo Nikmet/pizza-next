@@ -31,3 +31,5 @@ export { CheckoutCart } from "./checkout/checkout-cart";
 export { CheckoutPersonalInfo } from "./checkout/checkout-personal-info";
 export { CheckoutAddressForm } from "./checkout/checkout-address-form";
 export { type CheckoutFormValues, checkoutFormSchema } from "./checkout/checkout-form-schema";
+export { FormTextarea } from "./form-components/form-textarea";
+export { AddressInput } from "./address-input"

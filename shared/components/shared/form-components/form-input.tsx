@@ -23,6 +23,7 @@ export const FormInput = ({ name, label, required, className, ...props }: IFormI
     const value = watch(name);
     const errorText = errors[name];
 
+
     const handleClearInput = () => {
         setValue(name, "", { shouldValidate: true });
     };
