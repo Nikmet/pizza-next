@@ -1,6 +1,13 @@
 "use client";
 
-import { CheckoutDetailsItem, CheckoutItem, Container, Title, WhiteBlock } from "@/shared/components/shared";
+import {
+    CheckoutDetailsItem,
+    CheckoutItem,
+    CheckoutSidebar,
+    Container,
+    Title,
+    WhiteBlock
+} from "@/shared/components/shared";
 import { Button, Input, Textarea } from "@/shared/components/ui";
 import { PizzaSize, PizzaType } from "@/shared/constants/pizza";
 import { useCart } from "@/shared/hooks/use-cart";
@@ -65,33 +72,7 @@ export default function CheckoutPage() {
 
                 {/* {Правая часть} */}
                 <div className="w-[450px]">
-                    <WhiteBlock className="p-6 sticky top-4">
-                        <div className="flex flex-col gap-1">
-                            <span className="text-xl">Итого:</span>
-                            <span className="text-3xl font-extrabold">1200 ₽</span>
-                        </div>
-
-                        <CheckoutDetailsItem
-                            title="Стоимость без налога:"
-                            total={String(totalAmount)}
-                            icon={<Package className=" text-gray-300" size={18} />}
-                        />
-                        <CheckoutDetailsItem
-                            title="Налог:"
-                            total="80"
-                            icon={<Percent className=" text-gray-300" size={18} />}
-                        />
-                        <CheckoutDetailsItem
-                            title="Доставка:"
-                            total="120"
-                            icon={<Truck className=" text-gray-300" size={18} />}
-                        />
-
-                        <Button type="submit" className="w-full h-14 rounded-2xl mt-6 text-base font-bold">
-                            Перейти к оплате
-                            <ArrowRight className="w-5 ml-2" />
-                        </Button>
-                    </WhiteBlock>
+                    <CheckoutSidebar totalAmount={totalAmount} />
                 </div>
             </div>
         </Container>

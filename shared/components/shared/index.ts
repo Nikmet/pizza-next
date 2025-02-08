@@ -23,3 +23,4 @@ export { WhiteBlock } from "./white-block";
 export { CheckoutDetailsItem } from "./checkout-details-item";
 export { CheckoutItem } from "./checkout-item";
 export { CheckoutItemSkeleton } from "./checkout-item-skeleton";
+export { CheckoutSidebar } from "./checkout-sidebar"
