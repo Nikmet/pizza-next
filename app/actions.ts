@@ -2,6 +2,8 @@
 
 import { prisma } from "@/prisma/prisma-client";
 import { CheckoutFormValues } from "@/shared/components/shared";
+import { PayOrderTemplate } from "@/shared/components/shared/email-templates/pay-order";
+import { sendEmail } from "@/shared/lib/send-email";
 import { OrderStatus } from "@prisma/client";
 import { cookies } from "next/headers";
 
@@ -71,7 +73,17 @@ export async function createOrder(data: CheckoutFormValues) {
             }
         });
 
-        return "";
+        await sendEmail(
+            data.email,
+            "Оплата заказа Next Pizza №" + order.id,
+            PayOrderTemplate({
+                orderId: order.id,
+                totalAmount: order.totalAmount,
+                paymentLink: "http://google.com"
+            })
+        );
+
+        return "http://google.com";
     } catch (e) {
         console.log(e);
     }
