@@ -43,7 +43,7 @@ export const CheckoutSidebar = ({ totalAmount, loading, className }: ICheckoutSi
                 icon={<Truck className=" text-gray-300" size={18} />}
             />
 
-            <Button type="submit" className="w-full h-14 rounded-2xl mt-6 text-base font-bold" disabled={loading}>
+            <Button type="submit" className="w-full h-14 rounded-2xl mt-6 text-base font-bold" loading={loading}>
                 Перейти к оплате
                 <ArrowRight className="w-5 ml-2" />
             </Button>
