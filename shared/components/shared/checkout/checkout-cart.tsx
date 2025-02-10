@@ -23,30 +23,31 @@ export const CheckoutCart = ({
 }: ICheckoutCartProps): JSX.Element => {
     return (
         <WhiteBlock title="1. Корзина" className={className}>
-            {loading && items.map(i => <CheckoutItemSkeleton key={i.id} />)}
             <div className="flex flex-col gap-5">
-                {items.map(item => (
-                    <CheckoutItem
-                        key={item.id}
-                        id={item.id}
-                        imageUrl={item.imageUrl}
-                        details={
-                            item.pizzaSize
-                                ? getPizzaInfo({
-                                      size: item.pizzaSize as PizzaSize,
-                                      type: item.pizzaType as PizzaType,
-                                      selectedIngredients: new Set(item.ingredients)
-                                  }).textDetails
-                                : ""
-                        }
-                        name={item.name}
-                        price={item.price}
-                        quantity={item.quantity}
-                        disabled={item.disabled}
-                        onClickCountButton={type => onClickCountButton(item.id, item.quantity, type)}
-                        onClickRemove={() => removeCartItem(String(item.id))}
-                    />
-                ))}
+                {loading
+                    ? items.map(item => <CheckoutItemSkeleton key={item.id} />)
+                    : items.map(item => (
+                          <CheckoutItem
+                              key={item.id}
+                              id={item.id}
+                              imageUrl={item.imageUrl}
+                              details={
+                                  item.pizzaSize
+                                      ? getPizzaInfo({
+                                            size: item.pizzaSize as PizzaSize,
+                                            type: item.pizzaType as PizzaType,
+                                            selectedIngredients: new Set(item.ingredients)
+                                        }).textDetails
+                                      : ""
+                              }
+                              name={item.name}
+                              price={item.price}
+                              quantity={item.quantity}
+                              disabled={item.disabled}
+                              onClickCountButton={type => onClickCountButton(item.id, item.quantity, type)}
+                              onClickRemove={() => removeCartItem(String(item.id))}
+                          />
+                      ))}
             </div>
         </WhiteBlock>
     );

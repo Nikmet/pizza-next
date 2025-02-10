@@ -3,7 +3,7 @@ import { cn } from "@/shared/lib/utils";
 export interface ICheckoutDetailsItemProps {
     className?: string;
     title: string;
-    total: string;
+    total: React.ReactNode;
     icon?: React.ReactNode;
 }
 
@@ -15,7 +15,7 @@ export const CheckoutDetailsItem = ({ title, total, icon, className }: ICheckout
                 {title}
                 <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2"></div>
             </span>
-            <span className="font-bold text-lg">{total} ₽</span>
+            <span className="font-bold text-lg max-w-20">{total}</span>
         </div>
     );
 };

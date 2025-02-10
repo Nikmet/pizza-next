@@ -58,7 +58,7 @@ export default function CheckoutPage() {
 
                         {/* {Правая часть} */}
                         <div className="w-[450px]">
-                            <CheckoutSidebar totalAmount={totalAmount} />
+                            <CheckoutSidebar totalAmount={totalAmount} loading={loading} />
                         </div>
                     </div>
                 </form>
