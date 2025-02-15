@@ -1,3 +1,3 @@
 export const RequiredSymbol = (): JSX.Element => {
-    return <div className="text-red-500">*</div>;
+    return <span className="text-red-500">*</span>;
 };

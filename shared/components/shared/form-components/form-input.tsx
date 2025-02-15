@@ -31,9 +31,9 @@ export const FormInput = ({ name, label, required, className, ...props }: IFormI
     return (
         <div className={className}>
             {label && (
-                <p className="font-medium mb-2">
+                <div className="font-medium mb-2">
                     {label} {required && <RequiredSymbol />}
-                </p>
+                </div>
             )}
 
             <div className="relative">

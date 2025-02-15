@@ -20,7 +20,10 @@ export const ProfileButton = ({ onClickSignIn, className }: IProfileButtonProps)
                 </Button>
             ) : (
                 <Link href="/profile">
-                    <img src={session.user?.image || ""} alt="avatar" className="w-10 h-10 rounded-full hover:opacity-80 transition" />
+                    <Button variant="secondary" className="flex items-center gap-2 rounded-full">
+                        <CircleUser size={18} />
+                        Профиль
+                    </Button>
                 </Link>
             )}
         </div>
