@@ -4,8 +4,10 @@ import { prisma } from "@/prisma/prisma-client";
 import { CheckoutFormValues } from "@/shared/components/shared";
 import { PayOrderTemplate } from "@/shared/components/shared/email-templates/pay-order";
 import { createPayment } from "@/shared/lib/create-payment";
+import { getUserSession } from "@/shared/lib/get-user-session";
 import { sendEmail } from "@/shared/lib/send-email";
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus, Prisma } from "@prisma/client";
+import { hashSync } from "bcrypt";
 import { cookies } from "next/headers";
 
 export async function createOrder(data: CheckoutFormValues) {
@@ -106,6 +108,29 @@ export async function createOrder(data: CheckoutFormValues) {
         );
 
         return paymentUrl;
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+export async function updateUserInfo(data: Prisma.UserCreateInput) {
+    try {
+        const currentUser = await getUserSession();
+
+        if (!currentUser) {
+            throw new Error("User not found");
+        }
+
+        await prisma.user.update({
+            where: {
+                id: Number(currentUser.id)
+            },
+            data: {
+                fullName: data.fullName,
+                email: data.email,
+                password: hashSync(data.password, 10)
+            }
+        });
     } catch (e) {
         console.log(e);
     }
