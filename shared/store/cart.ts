@@ -30,7 +30,6 @@ export const useCartStore = create<CartState>()(
             try {
                 set({ loading: true, error: false });
                 const data = await api.cart.getCart();
-                console.log(data);
 
                 set(getCartDetails(data));
             } catch (e) {

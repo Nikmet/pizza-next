@@ -11,6 +11,7 @@ import { cn } from "@/shared/lib/utils";
 import { CartButton } from "./cart-button";
 import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
+import { ProfileButton } from "./profile-button";
 
 interface Props {
     className?: string;
@@ -52,10 +53,7 @@ export const Header: FC<Props> = ({ hasSearch = true, hasCart = true, className 
 
                 {/* Правая часть */}
                 <div className="flex items-center gap-3">
-                    <Button variant="outline" className="flex items-center gap-1">
-                        <User size={16} />
-                        Войти
-                    </Button>
+                    <ProfileButton onClickSignIn={() => {}} />
 
                     {hasCart && (
                         <div>
